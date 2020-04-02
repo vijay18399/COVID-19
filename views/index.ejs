@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>                        
+          </button>
+          <a class="navbar-brand" href="#">Covid-19</a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="/">Home</a></li>
+            <li><a href="/andhra">Andhra</a></li>
+            <li><a href="/flag">Active Cases</a></li>
+            <li><a href="/precaution">Precautions</a></li>
+            <li ><a href="/status">Live Reports</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="container">
+      <h2>Search You Country</h2>
+      <input class="form-control" id="myInput" type="text" placeholder="Search..">
+      <br>
+    <table class="table table-bordered table-striped" >
+     
+      <tr>
+        <th>country</th>
+        <th>cases</th>
+        <th>todayCases</th>
+        <th> deaths %></th>
+        <th> todayDeaths %></th>
+        <th> todayCases %></th>
+        <th> recovered %></th>
+        <th> active %></th>
+        <th> critical %></th>
+        <th> casesPerOneMillion %></th>
+        <th> deathsPerOneMillion %></th>
+        <th> updated %></th>
+        <th>flag</th>
+      </tr>
+      <tbody id="myTable">
+      <% data.forEach(function(item) { %>
+      
+        <tr>
+          <td><%= item.country %></td>
+          <td><%= item.cases %></td>
+          <td><%= item.todayCases %></td>
+          <td><%= item.deaths %></td>
+          <td><%= item.todayDeaths %></td>
+          <td><%= item.todayCases %></td>
+          <td><%= item.recovered %></td>
+          <td><%= item.active %></td>
+          <td><%= item.critical %></td>
+          <td><%= item.casesPerOneMillion %></td>
+          <td><%= item.deathsPerOneMillion %></td>
+          <td><%= new Date(item.updated).getDate() +"/"+new Date(item.updated).getMonth()+1 +"/"+new Date(item.updated).getFullYear() %></td>
+          <td>
+            <img width="25px" src=<%= item.countryInfo.flag  %> alt="">
+            </td>
+        </tr>
+        <% }); %>
+     
+      </tbody>
+    </table>
+ </div>
+  <script>
+    $(document).ready(function(){
+      $("#myInput").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#myTable tr").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+      });
+    });
+    </script>
+   
+  </body>
+</html>
+
+
